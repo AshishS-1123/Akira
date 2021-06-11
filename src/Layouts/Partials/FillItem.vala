@@ -36,6 +36,7 @@ public class Akira.Layouts.Partials.FillItem : Gtk.Grid {
     private Gtk.Grid color_picker;
     private Gtk.ColorChooserWidget? color_chooser_widget = null;
     private Akira.Utils.ColorPicker eyedropper;
+    private Gtk.ComboBoxText color_mode_chooser; // dropdown menu to select color or gradients
 
     private Gtk.FlowBox global_colors_flowbox;
 
@@ -257,9 +258,24 @@ public class Akira.Layouts.Partials.FillItem : Gtk.Grid {
             global_colors_flowbox.add (btn);
         }
 
+        color_picker.set_row_spacing (10); // some space to make it look good
+
+        // initialize the dropdown menu and add the three color options
+        color_mode_chooser = new Gtk.ComboBoxText ();
+        color_mode_chooser.append ("simple", "Simple Color");
+        color_mode_chooser.append ("linear", "Linear Gradient");
+        color_mode_chooser.append ("radial", "Radial Gradient");
+
+        // connect a handler to run when the mode of color is changed
+        color_mode_chooser.changed.connect (on_color_mode_changed);
+
+        // set the simple color as the active mode
+        color_mode_chooser.set_active_id ("simple");
+
         color_picker.attach (color_chooser_widget, 0, 0, 1, 1);
         color_picker.attach (global_colors_label, 0, 1, 1, 1);
         color_picker.attach (global_colors_flowbox, 0, 2, 1, 1);
+        color_picker.attach (color_mode_chooser, 0, 3, 1, 1);
         color_picker.show_all ();
         color_popover.add (color_picker);
 
@@ -271,6 +287,14 @@ public class Akira.Layouts.Partials.FillItem : Gtk.Grid {
         eyedropper_button.clicked.connect (on_eyedropper_click);
         delete_button.clicked.connect (on_delete_item);
         hidden_button.clicked.connect (toggle_visibility);
+    }
+
+
+    private void on_color_mode_changed () {
+        // change color mode in model
+        model.change_color_mode (color_mode_chooser.get_active_id ());
+        // trigger the mode changed signal to update fill
+        model.fill.on_mode_change ();
     }
 
     /*
