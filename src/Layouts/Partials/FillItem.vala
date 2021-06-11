@@ -21,7 +21,7 @@
  * Authored by: Ivan "isneezy" Vilanculo <ivilanculo@gmail.com>
  */
 
-public class Akira.Layouts.Partials.FillItem : Gtk.Grid {
+ public class Akira.Layouts.Partials.FillItem : Gtk.Grid {
     public weak Akira.Window window { get; construct; }
 
     private Gtk.Grid fill_chooser;
@@ -258,7 +258,7 @@ public class Akira.Layouts.Partials.FillItem : Gtk.Grid {
             global_colors_flowbox.add (btn);
         }
 
-        color_picker.set_row_spacing (10); // some space to make it look good
+        color_picker.set_row_spacing (12); // some space to make it look good
 
         // initialize the dropdown menu and add the three color options
         color_mode_chooser = new Gtk.ComboBoxText ();
@@ -288,7 +288,6 @@ public class Akira.Layouts.Partials.FillItem : Gtk.Grid {
         delete_button.clicked.connect (on_delete_item);
         hidden_button.clicked.connect (toggle_visibility);
     }
-
 
     private void on_color_mode_changed () {
         // change color mode in model
