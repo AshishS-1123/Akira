@@ -94,6 +94,7 @@ sources = files(
     'Lib/Components/Opacity.vala',
     'Lib/Components/Rotation.vala',
     'Lib/Components/Size.vala',
+    'Lib/Components/Gradient.vala',
 
     'Lib/Items/CanvasArtboard.vala',
     'Lib/Items/CanvasEllipse.vala',
