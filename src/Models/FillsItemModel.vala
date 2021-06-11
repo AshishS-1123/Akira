@@ -62,4 +62,9 @@ public class Akira.Models.FillsItemModel : Models.BaseModel {
         return "Color: %s\nAlpha: %f\nHidden: %s\nBlendingMode: %s".printf (
             color, alpha, (hidden ? "1" : "0"), blending_mode.to_string ());
     }
+
+    // when the color mode in FillItem changes, this will trigger redrawing the fill
+    public void change_color_mode (string new_mode) {
+        fill.color_mode = new_mode;
+    }
 }
